@@ -14,6 +14,17 @@ TEST(ChassisTest, ConstructSubsystem) {
     Chassis chassis;
 }
 
+
+TEST(ChassisTest, ChassisName) {
+    // Arrange
+    Chassis chassis;
+
+    // Action
+    std::string subsystemName = chassis.GetName();
+    // Assert or Expect
+    EXPECT_EQ(subsystemName, "Chassis");
+}
+
 } // namespace
 } // namespace testing
 } // namespace valkyrie
