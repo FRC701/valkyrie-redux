@@ -7,7 +7,7 @@
 
 #include "subsystems/Chassis.h"
 
-Chassis::Chassis() : Subsystem("ExampleSubsystem") {}
+Chassis::Chassis() : Subsystem("Chassis") {}
 
 void Chassis::InitDefaultCommand() {
   // Set the default command for a subsystem here.
