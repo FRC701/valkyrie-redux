@@ -25,6 +25,8 @@ void Chassis::InitDefaultCommand()
 
 void Chassis::Drive(double left, double right) 
 {
+    mLeft.Set(left);
+    mRight.Set(right);
 }
 
 // Put methods for controlling this subsystem
