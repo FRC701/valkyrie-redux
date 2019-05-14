@@ -8,6 +8,7 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
+#include <frc/drive/DifferentialDrive.h>
 #include <frc/SpeedController.h>
 
 namespace robovikes {
@@ -23,7 +24,8 @@ public:
 
 private:
   SpeedController& mLeft;
-  SpeedController& mRight;  
+  SpeedController& mRight;
+  frc::DifferentialDrive mDrive;
 };
 
 } // valkyrie
