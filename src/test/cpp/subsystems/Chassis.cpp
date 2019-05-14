@@ -10,14 +10,16 @@ namespace valkyrie {
 namespace testing {
 namespace {
 
-TEST(ChassisTest, ConstructSubsystem) {
-    Chassis chassis;
-}
+// Use Twine instead of std::string because it's WPI.
+const wpi::Twine kChassisSubsystemName = "Chassis";
 
+TEST(ChassisTest, ConstructSubsystem) {
+    Chassis chassis(kChassisSubsystemName);
+}
 
 TEST(ChassisTest, ChassisName) {
     // Arrange
-    Chassis chassis;
+    Chassis chassis(kChassisSubsystemName);
 
     // Action
     std::string subsystemName = chassis.GetName();

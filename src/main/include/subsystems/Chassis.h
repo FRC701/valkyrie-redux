@@ -9,12 +9,19 @@
 
 #include <frc/commands/Subsystem.h>
 
+namespace robovikes {
+namespace valkyrie {
+
 class Chassis : public frc::Subsystem {
- private:
+public:
+  Chassis(const wpi::Twine& name);
+  void InitDefaultCommand() override;
+
+private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
 
- public:
-  Chassis();
-  void InitDefaultCommand() override;
 };
+
+} // valkyrie
+} // robovikes

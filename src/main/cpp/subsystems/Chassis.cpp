@@ -7,12 +7,17 @@
 
 #include "subsystems/Chassis.h"
 
-Chassis::Chassis() : Subsystem("Chassis") {}
+namespace robovikes {
+namespace valkyrie {
+
+Chassis::Chassis(const wpi::Twine& name) : Subsystem(name) 
+{}
 
 void Chassis::InitDefaultCommand() {
-  // Set the default command for a subsystem here.
-  // SetDefaultCommand(new MySpecialCommand());
 }
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+} // valkyrie
+} // robovikes
