@@ -3,6 +3,7 @@
 
 #include "subsystems/Chassis.h"
 
+#include "../../include/NullSpeedController.h"
 #include <gtest/gtest.h>
 
 namespace robovikes {
@@ -29,6 +30,9 @@ TEST(ChassisTest, ChassisName) {
 
 TEST(ChassisTest, Drive) {
     // Arrange
+    using SpeedController = robovikes::testing::NullSpeedController;
+    SpeedController left;
+    SpeedController right;
     Chassis chassis(kChassisSubsystemName);
 
     // Action
@@ -38,6 +42,8 @@ TEST(ChassisTest, Drive) {
 
     // Assert or Expect
     // TODO: How to test? gmock?
+    // Chassis will have two SpeedControllers, left and right
+    // A mock speed controller can tell us if the speed controller was used.
     FAIL();
 }
 
