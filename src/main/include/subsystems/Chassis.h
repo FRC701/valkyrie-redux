@@ -17,6 +17,8 @@ public:
   Chassis(const wpi::Twine& name);
   void InitDefaultCommand() override;
 
+  void Drive(double left, double right);
+
 private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
