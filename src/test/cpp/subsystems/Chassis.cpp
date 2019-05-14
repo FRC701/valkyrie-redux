@@ -14,13 +14,23 @@ namespace {
 // Use Twine instead of std::string because it's WPI.
 const wpi::Twine kChassisSubsystemName = "Chassis";
 
-TEST(ChassisTest, ConstructSubsystem) {
-    Chassis chassis(kChassisSubsystemName);
+class ChassisTest : public ::testing::Test
+{
+protected:
+    using SpeedController = robovikes::testing::NullSpeedController;
+    SpeedController mLeft;
+    SpeedController mRight;
+
+};
+
+TEST_F(ChassisTest, ConstructSubsystem) {
+    Chassis chassis(kChassisSubsystemName, mLeft, mRight);
 }
 
-TEST(ChassisTest, ChassisName) {
+
+TEST_F(ChassisTest, ChassisName) {
     // Arrange
-    Chassis chassis(kChassisSubsystemName);
+    Chassis chassis(kChassisSubsystemName, mLeft, mRight);
 
     // Action
     std::string subsystemName = chassis.GetName();
@@ -28,12 +38,9 @@ TEST(ChassisTest, ChassisName) {
     EXPECT_EQ(subsystemName, "Chassis");
 }
 
-TEST(ChassisTest, Drive) {
+TEST_F(ChassisTest, Drive) {
     // Arrange
-    using SpeedController = robovikes::testing::NullSpeedController;
-    SpeedController left;
-    SpeedController right;
-    Chassis chassis(kChassisSubsystemName);
+    Chassis chassis(kChassisSubsystemName, mLeft, mRight);
 
     // Action
     constexpr double kDriveLeft = 1.0;

@@ -10,7 +10,13 @@
 namespace robovikes {
 namespace valkyrie {
 
-Chassis::Chassis(const wpi::Twine& name) : Subsystem(name) 
+Chassis::Chassis(
+    const wpi::Twine& name
+  , SpeedController& left
+  , SpeedController& right) 
+  : Subsystem(name) 
+  , mLeft(left)
+  , mRight(right)
 {}
 
 void Chassis::InitDefaultCommand() 

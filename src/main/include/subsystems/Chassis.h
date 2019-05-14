@@ -8,21 +8,22 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
+#include <frc/SpeedController.h>
 
 namespace robovikes {
 namespace valkyrie {
 
 class Chassis : public frc::Subsystem {
 public:
-  Chassis(const wpi::Twine& name);
+  using SpeedController = frc::SpeedController;
+  Chassis(const wpi::Twine& name, SpeedController& left, SpeedController& right);
   void InitDefaultCommand() override;
 
   void Drive(double left, double right);
 
 private:
-  // It's desirable that everything possible under private except
-  // for methods that implement subsystem capabilities
-
+  SpeedController& mLeft;
+  SpeedController& mRight;  
 };
 
 } // valkyrie
