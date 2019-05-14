@@ -4,6 +4,7 @@
 #include "subsystems/Chassis.h"
 
 #include "../../include/NullSpeedController.h"
+#include "../../include/MockSpeedController.h"
 #include <gtest/gtest.h>
 
 namespace robovikes {
@@ -40,18 +41,21 @@ TEST_F(ChassisTest, ChassisName) {
 
 TEST_F(ChassisTest, Drive) {
     // Arrange
-    Chassis chassis(kChassisSubsystemName, mLeft, mRight);
+    using MockSpeedController = robovikes::testing::MockSpeedController;
+    MockSpeedController left;
+    MockSpeedController right;
+
+    EXPECT_CALL(left, Set(1.0));
+    EXPECT_CALL(right, Set(1.0));
+    Chassis chassis(kChassisSubsystemName, left, right);
 
     // Action
     constexpr double kDriveLeft = 1.0;
     constexpr double kDriveRight = 1.0;
     chassis.Drive(kDriveLeft, kDriveRight);
 
-    // Assert or Expect
-    // TODO: How to test? gmock?
-    // Chassis will have two SpeedControllers, left and right
-    // A mock speed controller can tell us if the speed controller was used.
-    FAIL();
+    // Assert
+    // Mocks for left and right will assert
 }
 
 
