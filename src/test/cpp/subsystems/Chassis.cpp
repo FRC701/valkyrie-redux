@@ -27,6 +27,21 @@ TEST(ChassisTest, ChassisName) {
     EXPECT_EQ(subsystemName, "Chassis");
 }
 
+TEST(ChassisTest, Drive) {
+    // Arrange
+    Chassis chassis(kChassisSubsystemName);
+
+    // Action
+    constexpr double kDriveLeft = 1.0;
+    constexpr double kDriveRight = 1.0;
+    chassis.Drive(kDriveLeft, kDriveRight);
+
+    // Assert or Expect
+    // TODO: How to test? gmock?
+    FAIL();
+}
+
+
 } // namespace
 } // namespace testing
 } // namespace valkyrie

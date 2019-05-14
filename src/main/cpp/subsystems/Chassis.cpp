@@ -13,7 +13,12 @@ namespace valkyrie {
 Chassis::Chassis(const wpi::Twine& name) : Subsystem(name) 
 {}
 
-void Chassis::InitDefaultCommand() {
+void Chassis::InitDefaultCommand() 
+{
+}
+
+void Chassis::Drive(double left, double right) 
+{
 }
 
 // Put methods for controlling this subsystem
