@@ -42,15 +42,19 @@ TEST_F(ChassisTest, ChassisName) {
     EXPECT_EQ(subsystemName, "Chassis");
 }
 
-TEST_F(ChassisTest, Drive) {
-    // Arrange
+class MockChassisTest : public ::testing::Test
+{
+protected:
     using MockSpeedController = robovikes::testing::MockSpeedController;
-    MockSpeedController left;
-    MockSpeedController right;
+    MockSpeedController mLeft;
+    MockSpeedController mRight;
 
-    EXPECT_CALL(left, Set(1.0));
-    EXPECT_CALL(right, Set(-1.0));
-    Chassis chassis(kChassisSubsystemName, left, right);
+};
+
+TEST_F(MockChassisTest, Drive) {
+    EXPECT_CALL(mLeft, Set(1.0));
+    EXPECT_CALL(mRight, Set(-1.0));
+    Chassis chassis(kChassisSubsystemName, mLeft, mRight);
 
     // Action
     constexpr double kDriveLeft = 1.0;
@@ -62,18 +66,16 @@ TEST_F(ChassisTest, Drive) {
 }
 
 // Chassis should be 4 motors. 
-TEST_F(ChassisTest, Drive4Motor) {
+TEST_F(MockChassisTest, Drive4Motor) {
     // Arrange
     using MockSpeedController = robovikes::testing::MockSpeedController;
-    MockSpeedController leftFront;
-    MockSpeedController rightFront;
     MockSpeedController leftRear;
     MockSpeedController rightRear;
-    frc::SpeedControllerGroup left(leftFront, leftRear);
-    frc::SpeedControllerGroup right(rightFront, rightRear);
+    frc::SpeedControllerGroup left(mLeft, leftRear);
+    frc::SpeedControllerGroup right(mRight, rightRear);
 
-    EXPECT_CALL(leftFront, Set(1.0));
-    EXPECT_CALL(rightFront, Set(-1.0));
+    EXPECT_CALL(mLeft, Set(1.0));
+    EXPECT_CALL(mRight, Set(-1.0));
     EXPECT_CALL(leftRear, Set(1.0));
     EXPECT_CALL(rightRear, Set(-1.0));
     Chassis chassis(kChassisSubsystemName, left, right);
@@ -89,11 +91,9 @@ TEST_F(ChassisTest, Drive4Motor) {
 
 // And we would like to use the
 // support of the DifferentialDrive capabilities. 
-TEST_F(ChassisTest, DriveDifferential) {
+TEST_F(MockChassisTest, DriveDifferential) {
     // Arrange
     using SpeedController = robovikes::testing::MockSpeedController;
-    SpeedController leftFront;
-    SpeedController rightFront;
     SpeedController leftRear;
     SpeedController rightRear;
 
@@ -102,13 +102,13 @@ TEST_F(ChassisTest, DriveDifferential) {
     constexpr double kOutputLeft = 0.2399; // squared and scaled for the deadband
     constexpr double kOutputRight = -0.2399; // squared and scaled for the deadband
 
-    EXPECT_CALL(leftFront, Set(DoubleNear(kOutputLeft, 0.0001)));
-    EXPECT_CALL(rightFront, Set(DoubleNear(kOutputRight, 0.0001)));
+    EXPECT_CALL(mLeft, Set(DoubleNear(kOutputLeft, 0.0001)));
+    EXPECT_CALL(mRight, Set(DoubleNear(kOutputRight, 0.0001)));
     EXPECT_CALL(leftRear, Set(DoubleNear(kOutputLeft, 0.0001)));
     EXPECT_CALL(rightRear, Set(DoubleNear(kOutputRight, 0.0001)));
 
-    frc::SpeedControllerGroup left(leftFront, leftRear);
-    frc::SpeedControllerGroup right(rightFront, rightRear);
+    frc::SpeedControllerGroup left(mLeft, leftRear);
+    frc::SpeedControllerGroup right(mRight, rightRear);
     Chassis chassis(kChassisSubsystemName, left, right);
 
     // Action
