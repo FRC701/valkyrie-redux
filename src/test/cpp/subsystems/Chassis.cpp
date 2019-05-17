@@ -3,6 +3,7 @@
 
 #include "subsystems/Chassis.h"
 
+#include "../../include/NullCommand.h"
 #include "../../include/NullSpeedController.h"
 #include "../../include/MockSpeedController.h"
 #include <frc/SpeedControllerGroup.h>
@@ -116,6 +117,18 @@ TEST_F(MockChassisTest, DriveDifferential) {
 
     // Assert
     // Mocks for left and right will assert
+}
+
+TEST_F(MockChassisTest, DefaultCommand) {
+    // The chassis has no default command after construction.
+    Chassis chassis(kChassisSubsystemName, mLeft, mRight);
+
+    EXPECT_EQ(chassis.GetDefaultCommand(), nullptr);
+
+    using NullCommand = robovikes::testing::NullCommand;
+    NullCommand nullCommand(&chassis);
+    chassis.SetDefaultCommand(&nullCommand);
+    EXPECT_EQ(chassis.GetDefaultCommand(), &nullCommand);
 }
 
 } // namespace
